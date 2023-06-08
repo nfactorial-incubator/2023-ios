@@ -1,14 +1,14 @@
 //
-//  DailyIntakeView.swift
+//  SettingsDailyIntakeView.swift
 //  LiveCoding-One
 //
-//  Created by ablai erzhanov on 07.06.2023.
+//  Created by ablai erzhanov on 08.06.2023.
 //
 
 import SwiftUI
 
 
-struct DailyIntakeView: View {
+struct SettingsDailyIntakeView: View {
     
     @EnvironmentObject var onboardManager: OnboardManager
     @State var isTextFieldActive: Bool = false
@@ -30,13 +30,13 @@ struct DailyIntakeView: View {
                 .padding(.top, 62)
             
             
-            DailyIntakeInputView(inputText: $inputText, isTextFieldActive: $isTextFieldActive)
+            SettingsDailyIntakeInputView(inputText: $inputText, isTextFieldActive: $isTextFieldActive)
                 .padding(.top, 32)
             
             
             Spacer()
             
-            DailyIntakeButton(onboardManager: onboardManager, inputText: $inputText)
+            SettingsDailyIntakeButton(onboardManager: onboardManager)
                 .padding(.bottom, isTextFieldActive == false ? 40 : 180)
         }
         .edgesIgnoringSafeArea(.all)
@@ -45,7 +45,7 @@ struct DailyIntakeView: View {
     }
 }
 
-struct DailyIntakeInputView: View {
+struct SettingsDailyIntakeInputView: View {
     @Binding var inputText: String
     @Binding var isTextFieldActive: Bool
     
@@ -79,33 +79,28 @@ struct DailyIntakeInputView: View {
     }
 }
 
-struct DailyIntakeView_Previews: PreviewProvider {
+struct SettingsDailyIntakeView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyIntakeView()
+        SettingsDailyIntakeView()
     }
 }
 
 
 
 
-struct DailyIntakeButton: View {
+struct SettingsDailyIntakeButton: View {
     var onboardManager: OnboardManager
-    @Binding var inputText: String
     var body: some View {
         Button {
             AppDataAPI.isOnboarding = false
             onboardManager.isOnboarding = false
-            let dailyIntakeAmount = Double(inputText)
-            if let amount = dailyIntakeAmount {
-                AppDataAPI.intakeAmount = amount
-            }
         } label: {
 //            NavigationLink(value: 3, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
                         .foregroundColor(Color(red: 0.094, green: 0.408, blue: 0.992))
                     
-                    Text("Save")
+                    Text("Add")
                         .foregroundColor(Color(red: 1, green: 1, blue: 1))
                         .font(.system(size: 22))
                         .fontWeight(.semibold)
